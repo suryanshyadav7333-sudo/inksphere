@@ -74,3 +74,54 @@
     line-height: 1.8;
   }
 }
+
+/* InkSphere — Comfortable Article Reading */
+
+.article-modal {
+  width: min(100%, 740px);
+  max-height: 90vh;
+  padding: clamp(20px, 4vw, 34px);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  -webkit-overflow-scrolling: touch;
+}
+
+.article-modal h2 {
+  font-size: clamp(27px, 5vw, 36px);
+  line-height: 1.3;
+  letter-spacing: -0.6px;
+  margin: 18px 0 20px;
+  overflow-wrap: anywhere;
+}
+
+.article-modal p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #555575;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+@media (max-width: 480px) {
+  .article-backdrop {
+    padding: 10px;
+  }
+
+  .article-modal {
+    width: 100%;
+    max-height: 90vh;
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  .article-modal h2 {
+    font-size: 27px;
+    line-height: 1.35;
+    margin-top: 16px;
+  }
+
+  .article-modal p {
+    font-size: 16px;
+    line-height: 1.85;
+  }
+}
