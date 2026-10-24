@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#151744" />
+  <meta name="description" content="InkSphere — a colorful home for ideas, stories, and thoughtful reads." />
+  <title>InkSphere — Stories for Curious Minds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="InkSphere home"><span class="brand-mark">▤</span><span>InkSphere<span class="brand-dot">.</span></span></a>
+    <nav class="nav-links"><a class="active" href="#home">Home</a><a href="#stories">Explore</a><a href="#about">About</a></nav>
+    <button class="btn btn-light" id="openAdmin"><span>＋</span> Publish a blog</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-art" role="img" aria-label="A cozy writing desk overlooking colorful sunset mountains"></div>
+      <div class="hero-content">
+        <span class="eyebrow"><span class="eyebrow-spark">✦</span> READ · LEARN · IMAGINE</span>
+        <h1>Stories that spark<br><span>something in you.</span></h1>
+        <p>A little corner of the internet for curious minds. Explore thoughtful ideas, fresh perspectives, and stories worth staying for.</p>
+        <form class="search" id="searchForm"><span class="search-icon">⌕</span><input id="searchInput" type="search" placeholder="Find a story, topic, or idea…" aria-label="Search blogs"><button aria-label="Search" type="submit">→</button></form>
+        <div class="hero-note"><span class="tiny-stars">✦ ✧ ✦</span> A quiet place to read something wonderful</div>
+      </div>
+      <div class="hero-sticker"><span>☕</span><div><b>Take a breath.</b><small>Stay for a story.</small></div></div>
+    </section>
+
+    <section class="feature-strip" id="about">
+      <article class="feature"><div class="feature-icon lilac">✧</div><div><h3>Ideas worth reading</h3><p>Thoughtful writing across tech, life, learning, and everything between.</p></div></article>
+      <article class="feature"><div class="feature-icon mint">✎</div><div><h3>One voice, many stories</h3><p>A personal publication made to share new perspectives with everyone.</p></div></article>
+      <article class="feature"><div class="feature-icon blue">☼</div><div><h3>Open to everyone</h3><p>Read from any device, wherever curiosity takes you.</p></div></article>
+    </section>
+
+    <section class="content-wrap" id="stories">
+      <div class="section-heading"><div><span class="section-kicker">THE READING ROOM</span><h2>Find your next <em>favourite.</em></h2><p class="section-subtitle">Fresh thoughts, meaningful reads, and little sparks of inspiration.</p></div><span class="story-count" id="storyCount">0 stories</span></div>
+      <div id="blogGrid" class="blog-grid" aria-live="polite"></div>
+      <div class="empty-state" id="emptyState">
+        <div class="empty-illustration"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="paper"><span></span><span></span><span></span><div class="paper-sun">☼</div></div><div class="mini-spark spark-a">✦</div><div class="mini-spark spark-b">✧</div></div>
+        <span class="empty-kicker">A FRESH PAGE</span><h3>No stories here… <em>yet.</em></h3><p>The reading room is waiting for its very first story.<br>Check back soon for something wonderful.</p>
+        <button class="btn btn-primary" id="emptyPublish">＋ Publish the first blog</button>
+      </div>
+    </section>
+    <section class="quote-band"><span class="quote-mark">“</span><p>Somewhere, someone is looking for the exact words you have to say.</p><span class="quote-credit">— KEEP WRITING</span></section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#home"><span class="brand-mark">▤</span><span>InkSphere<span class="brand-dot">.</span></span></a><p>Made for curious minds and late-night thoughts.</p><span class="footer-spark">✦</span></footer>
+
+  <div class="modal-backdrop" id="adminModal" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeAdmin" aria-label="Close">×</button>
+      <div class="modal-symbol">✍</div><span class="section-kicker">THE AUTHOR'S DESK</span><h2 id="modalTitle">Publish a story</h2><p class="modal-intro">Have something on your mind? Give it a title and let it out into the world.</p>
+      <div id="loginPanel">
+        <label for="adminEmail">Author email</label><input id="adminEmail" type="email" placeholder="you@example.com" autocomplete="username">
+        <label for="adminPassword">Password</label><input id="adminPassword" type="password" placeholder="Your author password" autocomplete="current-password">
+        <button class="btn btn-primary full" id="loginButton">Sign in to publish <span>→</span></button>
+        <p class="form-hint">Only the site owner can publish. Visitors can read published stories without signing in.</p>
+      </div>
+      <form id="publishForm" class="hidden">
+        <label for="blogTitle">Story title</label><input id="blogTitle" maxlength="100" required placeholder="A title that draws readers in…">
+        <div class="form-row"><div><label for="blogCategory">Category</label><select id="blogCategory"><option>Life</option><option>Technology</option><option>Learning</option><option>Creativity</option><option>Ideas</option><option>Travel</option></select></div><div><label for="blogReadTime">Reading time</label><select id="blogReadTime"><option value="3 min read">3 min read</option><option value="5 min read">5 min read</option><option value="7 min read">7 min read</option><option value="10 min read">10 min read</option></select></div></div>
+        <label for="blogExcerpt">Short description</label><textarea id="blogExcerpt" maxlength="220" required rows="2" placeholder="A little preview to invite readers in…"></textarea>
+        <label for="blogContent">Your story</label><textarea id="blogContent" required rows="7" placeholder="Start writing here…"></textarea>
+        <label for="blogCover">Cover image URL <span class="optional">(optional)</span></label><input id="blogCover" type="url" placeholder="https://…">
+        <button class="btn btn-primary full" type="submit">Publish story <span>✦</span></button>
+        <button class="text-button" type="button" id="signOutButton">Sign out</button>
+      </form>
+      <p class="notice" id="formNotice" role="status"></p>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
